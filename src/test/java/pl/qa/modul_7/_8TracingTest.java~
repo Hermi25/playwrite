@@ -1,0 +1,9 @@
+package pl.qa.modul_7;
+
+import pl.qa.common.BaseTest;
+
+public class _8TracingTest extends BaseTest {
+
+    
+
+}

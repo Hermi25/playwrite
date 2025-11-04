@@ -1,0 +1,21 @@
+package pl.qa.modul_7;
+
+import com.microsoft.playwright.assertions.PlaywrightAssertions;
+import org.junit.jupiter.api.Test;
+import pl.qa.common.BaseTest;
+
+public class _1FrameTest extends BaseTest {
+
+    @Test
+    void should_enter_text_in_iframe() {
+        page.navigate("https://the-internet.herokuapp.com/iframe");
+        page.frameLocator("#mce_0_ifr").locator("#tinymce").fill("Test");
+
+    }
+
+    @Test
+    void should_get_text_from_nested_frames() {
+    page.navigate("https://the-internet.herokuapp.com/nested_frames");
+        PlaywrightAssertions.assertThat(page.frame("#frame-middle").locator("#content").hasText("Middle"));
+}
+}

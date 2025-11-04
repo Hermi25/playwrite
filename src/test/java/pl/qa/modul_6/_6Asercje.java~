@@ -1,0 +1,11 @@
+package pl.qa.modul_6;
+
+import com.microsoft.playwright.Locator;
+import pl.qa.common.BaseTest;
+
+public class _6Asercje extends BaseTest {
+    page.navigate("https://the-internet.herokuapp.com/checkboxes");
+    Locator firstCheckbox = page.getByRole(AriaRole.CHECKBOX).first();
+    firstCheckbox.check();
+
+}
