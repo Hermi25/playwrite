@@ -17,6 +17,11 @@ public class BaseTest {
     private BrowserContext context;
     protected Page page;
 
+    public BaseTest(Page page) {
+
+    }
+
+
     @BeforeAll
     static void beforeAll() {
         pw = Playwright.create();
@@ -27,9 +32,9 @@ public class BaseTest {
     void beforeEachBase() {
         context = browser.newContext();
 
-   //     BASIC AUTH
-       context = browser.newContext(new Browser.NewContextOptions()
-               .setHttpCredentials("admin", "admin"));
+//        BASIC AUTH
+//        context = browser.newContext(new Browser.NewContextOptions()
+//                .setHttpCredentials("admin", "admin"));
 
 //        START TRACING
         context.tracing().start(new Tracing.StartOptions()
@@ -38,12 +43,12 @@ public class BaseTest {
                 .setSources(true)
         );
 
-   /*  NAGRYWANIE WIDEO Z TESTU
-       context = browser.newContext(new Browser.NewContextOptions()
-               .setViewportSize(1920, 1080)
-               .setRecordVideoDir(Paths.get("videos/"))
-                .setRecordVideoSize(new RecordVideoSize(1920, 1080)));
-*/
+//        NAGRYWANIE WIDEO Z TESTU
+//        context = browser.newContext(new Browser.NewContextOptions()
+//                .setViewportSize(1920, 1080)
+//                .setRecordVideoDir(Paths.get("videos/"))
+//                .setRecordVideoSize(new RecordVideoSize(1920, 1080)));
+
 
         page = context.newPage();
     }
@@ -55,7 +60,7 @@ public class BaseTest {
                 + StringUtils.removeRoundBrackets(testInfo.getDisplayName())
                 + "_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss")) + ".zip";
 
-        context.tracing().stop(new Tracing.StopOptions().setPath(Paths.get("traces/trace_.zip")));
+        context.tracing().stop(new Tracing.StopOptions().setPath(Paths.get(traceName)));
         context.close();
     }
 

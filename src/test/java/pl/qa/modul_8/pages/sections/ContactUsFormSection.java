@@ -2,10 +2,14 @@ package pl.qa.modul_8.pages.sections;
 
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
+import lombok.Getter;
+import pl.qa.modul_8.dto.ContactUsDTO;
 import pl.qa.modul_8.pages.BasePage;
 
 import java.nio.file.Paths;
 
+
+@Getter
 public class ContactUsFormSection extends BasePage {
 
     private Locator errorMessage;
@@ -59,7 +63,7 @@ public class ContactUsFormSection extends BasePage {
         return this;
     }
 
-    public ContactUsFormSection sendContactUsForm(ContactUsDTO contactUsDTO) {
+    public ContactUsFormSection sendContactUsForm (ContactUsDTO contactUsDTO) {
         selectSubjectHeading(contactUsDTO.getSubjectHeading())
                 .enterEmailAddress(contactUsDTO.getEmailAddress())
                 .enterOrderReference(contactUsDTO.getOrderReference())
