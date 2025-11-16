@@ -15,11 +15,9 @@ public class BaseTest {
     private static Browser browser;
 
     private BrowserContext context;
-    protected Page page;
+    public Page page;
 
-    public BaseTest(Page page) {
 
-    }
 
 
     @BeforeAll

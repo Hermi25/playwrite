@@ -14,37 +14,33 @@ import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertTha
 
 public class CreateAnAccountTest extends BaseTest {
 
-    private HomePage homePage;
-    private Faker faker;
+        private HomePage homePage;
+        private Faker faker;
 
-   public CreateAnAccountTest(Page page) {
-        super(page);
+        @BeforeEach
+        void beforeEach() {
+            faker = new Faker();
+            homePage = new HomePage(page);
+            page.navigate("http://www.automationpractice.pl/");
+        }
+
+        @Test
+        void should_create_new_account_test() {
+            CreateAnAccountPage createAnAccountPage = homePage.getTopMenuSection().clickSignInLink();
+
+            createAnAccountPage.getCreateAnAccountFormSection()
+                    .enterEmail(faker.internet().emailAddress())
+                    .clickCreateAnAccountButton();
+
+            MyAccountPage myAccountPage = createAnAccountPage.getCreateAnAccountFormSection()
+                    .checkGenderMr()
+                    .enterFirstName("Iga")
+                    .enterLastName("Buka")
+                    .enterPassword("123456")
+                    .setDateOfBirth("6", "9", "1992")
+                    .clickRegisterButton();
+
+            assertThat(myAccountPage.getManageMyAccountSection().getLocators().accountCreatedMessage()).isVisible();
+            assertThat(myAccountPage.getManageMyAccountSection().getLocators().myAccountLabel()).hasText("My account");
+        }
     }
-
-    @BeforeEach
-    void beforeEach() {
-        faker = new Faker();
-        homePage = new HomePage(page);
-        page.navigate("http://www.automationpractice.pl/");
-    }
-
-    @Test
-    void should_create_new_account_test() {
-        CreateAnAccountPage createAnAccountPage = homePage.getTopMenuSection().clickSignInLink();
-
-        createAnAccountPage.getCreateAnAccountFormSection()
-                .enterEmail(faker.internet().emailAddress())
-                .clickCreateAnAccountButton();
-
-        MyAccountPage myAccountPage = createAnAccountPage.getCreateAnAccountFormSection()
-                .checkGenderMr()
-                .enterFirstName("Janek")
-                .enterLastName("Kowalski")
-                .enterPassword("123456")
-                .setDateOfBirth("6", "6", "2000")
-                .clickRegisterButton();
-
-        assertThat(myAccountPage.getManageMyAccountSection().getLocators().accountCreatedMessage()).isVisible();
-        assertThat(myAccountPage.getManageMyAccountSection().getLocators().myAccountLabel()).hasText("My account");
-    }
-}

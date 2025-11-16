@@ -14,7 +14,7 @@ public class SendContactUsFormTest extends BaseTest {
     private HomePage homePage;
 
     public SendContactUsFormTest(Page page) {
-        super(page);
+        //super(page);
     }
 
     @BeforeEach
